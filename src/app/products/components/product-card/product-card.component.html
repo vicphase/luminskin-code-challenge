@@ -18,6 +18,9 @@
   <div class="col px-lg-5 px-xl-5">
     <button class="w-100"
             mat-raised-button
-            color="primary">Add to Cart</button>
+            color="primary"
+            (click)="addToCart.emit(product)">
+      Add to Cart
+    </button>
   </div>
 </div>

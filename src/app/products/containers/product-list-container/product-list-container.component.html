@@ -1,1 +1,2 @@
-<app-product-list [products]="products$ | async"></app-product-list>
+<app-product-list [products]="products$ | async"
+                  (addToCart)="addToCart($event)"></app-product-list>
