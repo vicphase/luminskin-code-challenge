@@ -21,11 +21,13 @@
             <mat-form-field>
               <input matInput
                      type="number"
-                     [formControl]="form.get('amount')">
+                     [formControl]="form.get('amount')"
+                     [min]="1">
+              <mat-error *ngIf="form.get('amount').invalid">Invalid amount</mat-error>
             </mat-form-field>
           </div>
           <div class="col-6 flex-center">
-            {{ form?.value.price | currency }}
+            {{ form?.value.subtotal | currency }}
           </div>
         </div>
       </div>

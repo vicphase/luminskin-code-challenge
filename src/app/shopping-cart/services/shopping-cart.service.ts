@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Product } from '@app/products/models/product.model';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
@@ -49,13 +49,24 @@ export class ShoppingCartService {
 
   createProductControl(product: Product): FormGroup {
     const { id, title, image_url, price } = product;
-    return this.fb.group({
+    const formGroup = this.fb.group({
       id,
       title,
       image_url,
       price,
-      amount: 1,
+      amount: [1, [Validators.required, Validators.min(1)]],
+      subtotal: price,
     });
+
+    formGroup
+      .get('amount')
+      .valueChanges.pipe()
+      .subscribe((productAmount) =>
+        formGroup
+          .get('subtotal')
+          .patchValue(productAmount * formGroup.value.price)
+      );
+    return formGroup;
   }
 
   removeProduct(id: number): void {
