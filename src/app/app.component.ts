@@ -11,14 +11,14 @@ export class AppComponent implements OnInit {
   constructor(private apollo: Apollo) {}
 
   ngOnInit() {
-    // this.apollo
-    //   .watchQuery({
-    //     query: gql`
-    //       {
-    //         currency
-    //       }
-    //     `,
-    //   })
-    //   .valueChanges.subscribe((value) => console.log(value));
+    this.apollo
+      .watchQuery({
+        query: gql`
+          {
+            currency
+          }
+        `,
+      })
+      .valueChanges.subscribe((value) => console.log(value));
   }
 }
