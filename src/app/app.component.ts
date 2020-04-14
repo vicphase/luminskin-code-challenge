@@ -13,6 +13,10 @@ export class AppComponent implements OnInit {
   @ViewChild('sidenav') sidenav: MatSidenav;
   constructor(private shoppingCartService: ShoppingCartService) {}
 
+  get productsInCart(): number {
+    return Object.keys(this.shoppingCartService.form.value.products).length;
+  }
+
   ngOnInit() {
     this.shoppingCartService.openShoppingCart$
       .pipe(filter((value) => value))
