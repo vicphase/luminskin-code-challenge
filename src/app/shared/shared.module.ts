@@ -5,6 +5,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 const MATERIAL_MODULES = [
   MatButtonModule,
@@ -12,6 +13,7 @@ const MATERIAL_MODULES = [
   MatIconModule,
   MatSelectModule,
   MatSidenavModule,
+  MatToolbarModule,
 ];
 
 @NgModule({

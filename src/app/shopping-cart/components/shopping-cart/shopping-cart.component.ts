@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
@@ -9,6 +9,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export class ShoppingCartComponent implements OnInit {
   @Input() currencies: string[] = [];
   form: FormGroup;
+  @Output() closeShoppingCart = new EventEmitter<void>();
+
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
       currency: null,

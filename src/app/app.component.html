@@ -4,13 +4,23 @@
                (keydown.escape)="close()"
                disableClose
                position="end">
-  <app-shopping-cart-container></app-shopping-cart-container>
+    <app-shopping-cart-container (closeShoppingCart)="sidenav.close()"></app-shopping-cart-container>
   </mat-sidenav>
 
   <mat-sidenav-content>
-    <p><button mat-button
-              (click)="sidenav.open()">Open</button></p>
-    <router-outlet></router-outlet>
+    <mat-toolbar class="toolbar" color="primary">
+      <mat-toolbar-row>
+        <span>LUMIN</span>
+        <span class="spacer"></span>
+        <button mat-icon-button
+                (click)="sidenav.open()">
+          <mat-icon>shopping_cart</mat-icon>
+        </button>
+      </mat-toolbar-row>
+    </mat-toolbar>
 
+    <div class="content pb-3">
+      <router-outlet></router-outlet>
+    </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
