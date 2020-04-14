@@ -2,10 +2,11 @@
   min-width: 550px;
 }
 
-.position-absolute {
+.top {
   top: 0;
+  z-index: 5;
 }
 
-.back-arrow {
-  z-index: 5;
+.bottom {
+  bottom: 0;
 }

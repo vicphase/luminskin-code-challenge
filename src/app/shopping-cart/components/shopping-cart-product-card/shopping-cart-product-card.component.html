@@ -16,18 +16,31 @@
             {{ form?.value?.title }}
           </div>
         </div>
-        <div class="row">
-          <div class="col-6">
-            <mat-form-field>
-              <input matInput
-                     type="number"
-                     [formControl]="form.get('amount')"
-                     [min]="1">
-              <mat-error *ngIf="form.get('amount').invalid">Invalid amount</mat-error>
-            </mat-form-field>
+        <div class="row mt-3">
+          <div class="col-6 flex-start">
+            <button mat-icon-button
+                    type="button"
+                    (click)="remove()">
+              <mat-icon>remove</mat-icon>
+            </button>
+            <input class="text-center w-25"
+                   type="number"
+                   [formControl]="form.get('amount')"
+                   readonly>
+            <button mat-icon-button
+                    type="button"
+                    (click)="add()">
+              <mat-icon>add</mat-icon>
+            </button>
           </div>
           <div class="col-6 flex-center">
             {{ form?.value.subtotal | currency }}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <span *ngIf="form.get('amount').invalid"
+                  class="text-danger">Invalid amount</span>
           </div>
         </div>
       </div>

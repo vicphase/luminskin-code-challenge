@@ -5,5 +5,7 @@ export interface Product {
   title: string;
   image_url: string;
   price: number;
+  amount: number;
+  subtotal: number;
   product_options: ProductOption[];
 }

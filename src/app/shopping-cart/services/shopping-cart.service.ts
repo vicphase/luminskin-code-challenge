@@ -25,6 +25,7 @@ export class ShoppingCartService {
 
   form = this.fb.group({
     currency: 'USD',
+    subtotal: null,
     products: this.fb.group({}),
   });
 
@@ -32,7 +33,11 @@ export class ShoppingCartService {
     return this.form.get('products') as FormGroup;
   }
 
-  constructor(private apollo: Apollo, private fb: FormBuilder) {}
+  constructor(private apollo: Apollo, private fb: FormBuilder) {
+    this.productsForm.valueChanges.subscribe((products) =>
+      this.form.get('subtotal').patchValue(this.calculateSubtotal(products))
+    );
+  }
 
   addToCart(product: Product): void {
     const control = this.productsForm.get(String(product.id)) as FormGroup;
@@ -71,5 +76,11 @@ export class ShoppingCartService {
 
   removeProduct(id: number): void {
     this.productsForm.removeControl(String(id));
+  }
+
+  calculateSubtotal(products: Record<string, Product>): number {
+    return Object.values(products)
+      .map((product) => product.subtotal)
+      .reduce((a, b) => a + b, 0);
   }
 }

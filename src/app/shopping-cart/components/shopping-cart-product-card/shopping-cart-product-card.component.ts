@@ -9,4 +9,12 @@ import { FormGroup } from '@angular/forms';
 export class ShoppingCartProductCardComponent {
   @Input() form: FormGroup;
   @Output() removeProduct = new EventEmitter<number>();
+
+  add(): void {
+    this.form.get('amount').patchValue(this.form.value.amount + 1);
+  }
+
+  remove(): void {
+    this.form.get('amount').patchValue(this.form.value.amount - 1);
+  }
 }
