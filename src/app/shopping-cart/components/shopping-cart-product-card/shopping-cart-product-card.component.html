@@ -2,7 +2,9 @@
   <mat-card>
     <div class="row">
       <div class="col flex-end">
-        <button mat-icon-button>
+        <button mat-icon-button
+                type="button"
+                (click)="removeProduct.emit(form.value.id)">
           <mat-icon>close</mat-icon>
         </button>
       </div>
@@ -18,11 +20,12 @@
           <div class="col-6">
             <mat-form-field>
               <input matInput
-                     type="number">
+                     type="number"
+                     [formControl]="form.get('amount')">
             </mat-form-field>
           </div>
-          <div class="col-6">
-            {{ form?.value.price }}
+          <div class="col-6 flex-center">
+            {{ form?.value.price | currency }}
           </div>
         </div>
       </div>

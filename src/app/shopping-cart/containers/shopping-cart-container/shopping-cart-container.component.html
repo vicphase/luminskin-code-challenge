@@ -1,3 +1,5 @@
-<app-shopping-cart [currencies]="currencies$ | async"
-                   (closeShoppingCart)="closeShoppingCart.emit()">
+<app-shopping-cart [form]="form"
+                   [currencies]="currencies$ | async"
+                   (closeShoppingCart)="closeShoppingCart.emit()"
+                   (removeProduct)="removeProduct($event)">
 </app-shopping-cart>

@@ -24,7 +24,7 @@ export class ShoppingCartService {
     .valueChanges.pipe(map((response) => response.data.currency));
 
   form = this.fb.group({
-    currency: null,
+    currency: 'USD',
     products: this.fb.group({}),
   });
 
@@ -36,8 +36,9 @@ export class ShoppingCartService {
 
   addToCart(product: Product): void {
     const control = this.productsForm.get(String(product.id)) as FormGroup;
+
     control
-      ? control.get('amount').patchValue(control.value.amount++)
+      ? control.get('amount').patchValue(control.value.amount + 1)
       : this.productsForm.addControl(
           String(product.id),
           this.createProductControl(product)
@@ -55,5 +56,9 @@ export class ShoppingCartService {
       price,
       amount: 1,
     });
+  }
+
+  removeProduct(id: number): void {
+    this.productsForm.removeControl(String(id));
   }
 }

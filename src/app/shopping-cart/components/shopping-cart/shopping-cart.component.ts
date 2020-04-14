@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 @Component({
@@ -6,12 +6,17 @@ import { FormGroup } from '@angular/forms';
   templateUrl: './shopping-cart.component.html',
   styleUrls: ['./shopping-cart.component.scss'],
 })
-export class ShoppingCartComponent implements OnInit {
+export class ShoppingCartComponent {
   @Input() currencies: string[] = [];
   @Input() form: FormGroup;
   @Output() closeShoppingCart = new EventEmitter<void>();
+  @Output() removeProduct = new EventEmitter<number>();
 
-  constructor() {}
+  get productsForm(): FormGroup {
+    return this.form.get('products') as FormGroup;
+  }
 
-  ngOnInit(): void {}
+  get emptyCart(): boolean {
+    return !Object.keys(this.productsForm.value).length;
+  }
 }

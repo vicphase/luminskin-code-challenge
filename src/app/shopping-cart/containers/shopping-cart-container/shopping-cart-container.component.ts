@@ -7,10 +7,15 @@ import { ShoppingCartService } from '@app/shopping-cart/services/shopping-cart.s
   styleUrls: ['./shopping-cart-container.component.scss'],
 })
 export class ShoppingCartContainerComponent implements OnInit {
+  form = this.shoppingCartService.form;
   currencies$ = this.shoppingCartService.currencies$;
   @Output() closeShoppingCart = new EventEmitter<void>();
 
   constructor(private shoppingCartService: ShoppingCartService) {}
 
   ngOnInit(): void {}
+
+  removeProduct(id: number): void {
+    this.shoppingCartService.removeProduct(id);
+  }
 }
