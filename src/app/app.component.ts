@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
+import { MatSidenav } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-root',
@@ -8,6 +9,7 @@ import gql from 'graphql-tag';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
+  @ViewChild('sidenav') sidenav: MatSidenav;
   constructor(private apollo: Apollo) {}
 
   ngOnInit() {
@@ -20,5 +22,9 @@ export class AppComponent implements OnInit {
         `,
       })
       .valueChanges.subscribe((value) => console.log(value));
+  }
+
+  close() {
+    this.sidenav.close();
   }
 }

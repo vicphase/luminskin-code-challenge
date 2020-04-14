@@ -1,0 +1,37 @@
+<form [formGroup]="form">
+  <mat-card>
+    <div class="row">
+      <div class="col flex-end">
+        <button mat-icon-button>
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-8">
+        <div class="row">
+          <div class="col">
+            {{ form?.value?.title }}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <mat-form-field>
+              <input matInput
+                     type="number">
+            </mat-form-field>
+          </div>
+          <div class="col-6">
+            {{ form?.value.price }}
+          </div>
+        </div>
+      </div>
+
+      <div class="col-4">
+        <img [src]="form?.value.image_url"
+             [alt]="form?.value.title"
+             class="img-fluid product-img">
+      </div>
+    </div>
+  </mat-card>
+</form>

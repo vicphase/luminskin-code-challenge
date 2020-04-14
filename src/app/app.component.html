@@ -1,2 +1,16 @@
+<mat-sidenav-container class="example-container"
+                       (backdropClick)="close()">
+  <mat-sidenav #sidenav
+               (keydown.escape)="close()"
+               disableClose
+               position="end">
+  <app-shopping-cart-container></app-shopping-cart-container>
+  </mat-sidenav>
 
-<router-outlet></router-outlet>
+  <mat-sidenav-content>
+    <p><button mat-button
+              (click)="sidenav.open()">Open</button></p>
+    <router-outlet></router-outlet>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>

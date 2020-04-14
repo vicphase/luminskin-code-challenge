@@ -1,0 +1,29 @@
+<div class="container cart pt-5">
+  <div class="row position-absolute mt-1">
+    <div class="col-auto">
+      <button mat-icon-button>
+        <mat-icon>navigate_before</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <div class="row position-absolute w-100 mt-3 mb-5">
+    <div class="col flex-center">
+      <h4>Your Cart</h4>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <mat-form-field>
+        <mat-label>Currency</mat-label>
+        <mat-select>
+          <mat-option *ngFor="let currency of currencies"
+                      [value]="currency">
+            {{ currency }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+</div>
