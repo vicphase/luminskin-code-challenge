@@ -1,6 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Apollo } from 'apollo-angular';
-import gql from 'graphql-tag';
+import { Component, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 
 @Component({
@@ -8,23 +6,11 @@ import { MatSidenav } from '@angular/material/sidenav';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   @ViewChild('sidenav') sidenav: MatSidenav;
-  constructor(private apollo: Apollo) {}
+  constructor() {}
 
-  ngOnInit() {
-    this.apollo
-      .watchQuery({
-        query: gql`
-          {
-            currency
-          }
-        `,
-      })
-      .valueChanges.subscribe((value) => console.log(value));
-  }
-
-  close() {
+  close(): void {
     this.sidenav.close();
   }
 }

@@ -1,5 +1,5 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -8,15 +8,10 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class ShoppingCartComponent implements OnInit {
   @Input() currencies: string[] = [];
-  form: FormGroup;
+  @Input() form: FormGroup;
   @Output() closeShoppingCart = new EventEmitter<void>();
 
-  constructor(private fb: FormBuilder) {
-    this.form = this.fb.group({
-      currency: null,
-      products: this.fb.array([])
-    });
-  }
+  constructor() {}
 
   ngOnInit(): void {}
 }

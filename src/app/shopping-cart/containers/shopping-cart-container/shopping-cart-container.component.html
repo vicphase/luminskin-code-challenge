@@ -1,1 +1,3 @@
-<app-shopping-cart (closeShoppingCart)="closeShoppingCart.emit()"></app-shopping-cart>
+<app-shopping-cart [currencies]="currencies$ | async"
+                   (closeShoppingCart)="closeShoppingCart.emit()">
+</app-shopping-cart>
