@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Product } from '@app/products/models/product.model';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { catchError, map, switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -37,6 +37,29 @@ export class ShoppingCartService {
     this.productsForm.valueChanges.subscribe((products) =>
       this.form.get('subtotal').patchValue(this.calculateSubtotal(products))
     );
+
+    this.form
+      .get('currency')
+      .valueChanges.pipe(
+        switchMap((currency) =>
+          this.apollo
+            .watchQuery<{ products: Product[] }>({
+              query: gql`
+          {
+            products {
+              id
+              price(currency: ${currency})
+            }
+          }
+        `,
+            })
+            .valueChanges.pipe(
+              map((queryResult) => queryResult.data.products),
+              catchError(() => of([]))
+            )
+        )
+      )
+      .subscribe((products) => this.setCurrentPrice(products));
   }
 
   addToCart(product: Product): void {
@@ -59,17 +82,29 @@ export class ShoppingCartService {
       title,
       image_url,
       price,
-      amount: [1, [Validators.required, Validators.min(1)]],
+      amount: 1,
       subtotal: price,
     });
 
     formGroup
       .get('amount')
       .valueChanges.pipe()
-      .subscribe((productAmount) =>
+      .subscribe((productAmount) => {
+        if (productAmount < 1) {
+          this.removeProduct(formGroup.value.id);
+        }
         formGroup
           .get('subtotal')
-          .patchValue(productAmount * formGroup.value.price)
+          .patchValue(productAmount * formGroup.value.price);
+      });
+
+    formGroup
+      .get('price')
+      .valueChanges.pipe()
+      .subscribe((productPrice) =>
+        formGroup
+          .get('subtotal')
+          .patchValue(formGroup.value.amount * productPrice)
       );
     return formGroup;
   }
@@ -82,5 +117,16 @@ export class ShoppingCartService {
     return Object.values(products)
       .map((product) => product.subtotal)
       .reduce((a, b) => a + b, 0);
+  }
+
+  setCurrentPrice(products: Product[]): void {
+    products
+      .filter((product) => this.productsForm.get(String(product.id)))
+      .forEach((product) =>
+        this.productsForm
+          .get(String(product.id))
+          .get('price')
+          .patchValue(product.price)
+      );
   }
 }

@@ -37,12 +37,6 @@
             {{ form?.value.subtotal | currency }}
           </div>
         </div>
-        <div class="row">
-          <div class="col">
-            <span *ngIf="form.get('amount').invalid"
-                  class="text-danger">Invalid amount</span>
-          </div>
-        </div>
       </div>
 
       <div class="col-4">
