@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, Input } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { ShoppingCartService } from '@app/shopping-cart/services/shopping-cart.service';
 
 @Component({
@@ -6,14 +6,12 @@ import { ShoppingCartService } from '@app/shopping-cart/services/shopping-cart.s
   templateUrl: './shopping-cart-container.component.html',
   styleUrls: ['./shopping-cart-container.component.scss'],
 })
-export class ShoppingCartContainerComponent implements OnInit {
+export class ShoppingCartContainerComponent {
   form = this.shoppingCartService.form;
   currencies$ = this.shoppingCartService.currencies$;
   @Output() closeShoppingCart = new EventEmitter<void>();
 
   constructor(private shoppingCartService: ShoppingCartService) {}
-
-  ngOnInit(): void {}
 
   removeProduct(id: number): void {
     this.shoppingCartService.removeProduct(id);
